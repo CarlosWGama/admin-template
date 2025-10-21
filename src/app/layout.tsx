@@ -29,6 +29,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+          <script type="module" src="https://esm.sh/ionicons@8.0.0/loader"></script>
+          <script src="https://esm.sh/ionicons@8.0.0/loader"></script>
+      </Head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
