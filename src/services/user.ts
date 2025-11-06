@@ -1,5 +1,4 @@
 
-
 /**
  * SERVICES DE GERENCIAMENTO DE USUÁRIOS
  */
@@ -12,10 +11,21 @@ const UserServices = {
         //Simula um atrasado de 1seg
         await new Promise((resolve) => setInterval(resolve, 1000));
         
-        if (email == 'teste@teste.com' && password == '123456')
+        if (email == 'teste@teste.com' && password == '123456') {
+            const user = {email, id: 1, nome: 'Teste'};
+            sessionStorage.setItem('user', JSON.stringify(user));
             return { success: true }
-        else
+        } else
             return { success: false, message: 'Login incorreto' };
+    },
+
+    /**
+     * Retorna o usuário autenticado
+     * @returns 
+     */
+    getCurrentUser: () => {
+        const user = sessionStorage.getItem('user');
+        return user ? JSON.parse(user) : null;
     },
 
     /**
@@ -33,6 +43,7 @@ const UserServices = {
     logout: async (): Promise<{success: boolean}> => {
         //Simula um atrasado de 1seg
         new Promise((resolve) => setInterval(resolve, 1000));
+        sessionStorage.removeItem('user');
         return { success: true };
     }
 }
