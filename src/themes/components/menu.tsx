@@ -2,24 +2,29 @@
 import { useRouter } from "next/navigation";
 import AppMenuItem from "./menu-item";
 import UserServices from "@/services/user";
+import { useEffect, useState } from "react";
 
 export default function AppMenu() {
     const router = useRouter();
-    const user = UserServices.getCurrentUser()
+    const [ user, setUser ] = useState<any>(null);
     // ==============================================================================
     const handleLogout = async () => {
         UserServices.logout();
         router.replace('/');
     }
+    // --------------------------
+    useEffect(() => {
+        setUser(UserServices.getCurrentUser());
+    }, []);
     // ==============================================================================
     return (
-         <div className="w-[60px] md:w-[300px] bg-white flex flex-col pt-[50px]">
+         <div className="w-[60px] md:w-[300px] bg-(--background-primary) flex flex-col pt-[50px]">
             <div className="hidden md:flex flex-col">
                 <h1 className="text-[20px] font-bold text-center">GERENCIADOR WEB</h1>
                 <h2 className="text-center">Bem vindo!</h2>
                 <h2 className="text-center">{user?.nome} ({user?.email})</h2>
 
-                <div className="bg-[#f5f5f5] h-[6px] my-5"/>
+                <div className="bg-(--background-secondary) h-[6px] my-5"/>
             </div>
 
             {/* OPÇÕES */}

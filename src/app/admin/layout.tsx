@@ -14,7 +14,7 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="bg-[#f0f1f3] flex h-screen">
+    <div className="bg-(--background-secondary) flex h-screen">
         {/* MENU */}
         <AppMenu />
 

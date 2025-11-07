@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 
 /**
  * SERVICES DE GERENCIAMENTO DE USUÁRIOS
@@ -13,7 +14,7 @@ const UserServices = {
         
         if (email == 'teste@teste.com' && password == '123456') {
             const user = {email, id: 1, nome: 'Teste'};
-            sessionStorage.setItem('user', JSON.stringify(user));
+            Cookies.set('user', JSON.stringify(user));
             return { success: true }
         } else
             return { success: false, message: 'Login incorreto' };
@@ -23,8 +24,8 @@ const UserServices = {
      * Retorna o usuário autenticado
      * @returns 
      */
-    getCurrentUser: () => {
-        const user = sessionStorage.getItem('user');
+    getCurrentUser: () => {        
+        const user =  Cookies.get('user');
         return user ? JSON.parse(user) : null;
     },
 
@@ -43,7 +44,7 @@ const UserServices = {
     logout: async (): Promise<{success: boolean}> => {
         //Simula um atrasado de 1seg
         new Promise((resolve) => setInterval(resolve, 1000));
-        sessionStorage.removeItem('user');
+        Cookies.remove('user');
         return { success: true };
     }
 }
