@@ -46,7 +46,53 @@ const UserServices = {
         new Promise((resolve) => setInterval(resolve, 1000));
         Cookies.remove('user');
         return { success: true };
+    },
+
+    /**
+     * Retorna todos os usuários do sistema
+     * @returns 
+     */
+    getAll: async(): Promise<{success: boolean, users?: any[]}>  => {
+        new Promise((resolve) => setInterval(resolve, 1000));
+
+        return {success: true, users: [
+            {id: 1, nome: 'Teste', email: 'teste@teste.com', admin: false},
+            {id: 2, nome: 'Admin', email: 'admin@teste.com', admin: true},
+            {id: 3, nome: 'Carlos', email: 'carlos@teste.com', admin: false}
+        ]}
+    },
+
+    /**
+     * Retorna dados de um unico usuário
+     * @returns 
+     */
+    get: async(id: number): Promise<{success: boolean, user: any}>  => {
+        new Promise((resolve) => setInterval(resolve, 1000));
+
+        return {success: true, user: {id: 1, nome: 'Teste', email: 'teste@teste.com', admin: false}}
+    },
+
+    /**
+     * Atualiza um usuário
+     * @param user 
+     * @returns 
+     */
+    update: async (user:any): Promise<{success: boolean}> => {
+       new Promise((resolve) => setInterval(resolve, 1000));
+       return { success: true};
+    },
+
+    /**
+     * Remove um usuário
+     * @param user 
+     * @returns 
+     */
+    delete: async (id: number): Promise<{success: boolean}> => {
+       new Promise((resolve) => setInterval(resolve, 1000));
+       return { success: true};
     }
+
+
 }
 
 export default UserServices;
