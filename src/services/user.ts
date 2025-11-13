@@ -13,7 +13,7 @@ const UserServices = {
         await new Promise((resolve) => setInterval(resolve, 1000));
         
         if (email == 'teste@teste.com' && password == '123456') {
-            const user = {email, id: 1, nome: 'Teste'};
+            const user = {email, id: 1, name: 'Teste'};
             Cookies.set('user', JSON.stringify(user));
             return { success: true }
         } else
@@ -56,9 +56,9 @@ const UserServices = {
         new Promise((resolve) => setInterval(resolve, 1000));
 
         return {success: true, users: [
-            {id: 1, nome: 'Teste', email: 'teste@teste.com', admin: false},
-            {id: 2, nome: 'Admin', email: 'admin@teste.com', admin: true},
-            {id: 3, nome: 'Carlos', email: 'carlos@teste.com', admin: false}
+            {id: 1, name: 'Teste', email: 'teste@teste.com', admin: false},
+            {id: 2, name: 'Admin', email: 'admin@teste.com', admin: true},
+            {id: 3, name: 'Carlos', email: 'carlos@teste.com', admin: false}
         ]}
     },
 
@@ -66,10 +66,22 @@ const UserServices = {
      * Retorna dados de um unico usuário
      * @returns 
      */
-    get: async(id: number): Promise<{success: boolean, user: any}>  => {
+    getById: async(id: number): Promise<{success: boolean, user: any}>  => {
         new Promise((resolve) => setInterval(resolve, 1000));
+        if (id == 1)
+            return {success: true, user: {id: 1, name: 'Teste', email: 'teste@teste.com', admin: false}}
+        else    
+            return {success: false, user: null}
+    },
 
-        return {success: true, user: {id: 1, nome: 'Teste', email: 'teste@teste.com', admin: false}}
+    /**
+     * Cria um usuário
+     * @param user 
+     * @returns 
+     */
+    create: async (user:any): Promise<{success: boolean}> => {
+       new Promise((resolve) => setInterval(resolve, 1000));
+       return { success: true};
     },
 
     /**

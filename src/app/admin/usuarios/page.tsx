@@ -1,9 +1,11 @@
 import { AppButton, AppMainContainer } from "@/themes/components";
 import UserList from "./_list";
 
+export const metadata = {
+    title:'Lista de usuários'
+}
 // ==========================================================
-export default function Dashboard() {  
-
+export default function UsuariosPage() {  
 
     // ==========================================================
     return (

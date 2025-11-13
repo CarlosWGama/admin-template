@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import AppMenuItem from "./menu-item";
 import UserServices from "@/services/user";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function AppMenu() {
     const router = useRouter();
@@ -22,7 +23,10 @@ export default function AppMenu() {
             <div className="hidden md:flex flex-col">
                 <h1 className="text-[20px] font-bold text-center">GERENCIADOR WEB</h1>
                 <h2 className="text-center">Bem vindo!</h2>
-                <h2 className="text-center">{user?.nome} ({user?.email})</h2>
+                <h2 className="text-center font-bold">{user?.name} ({user?.email})</h2>
+                <Link href={`/admin/usuarios/editar/${user?.id}`}>
+                    <p className="text-center">Editar perfil</p>
+                </Link>
 
                 <div className="bg-(--background-secondary) h-[6px] my-5"/>
             </div>

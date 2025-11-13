@@ -11,12 +11,15 @@ export interface AppButtonProps {
     type?: 'solid'|'outline'
     disabled?: boolean
     icon?: Ionicons;
+    style?: any;
+    className?: string
 }
 // ==========================================================================
-export default function AppButton({title, onClick, color='--primary-color', textColor='white', form='square', type='solid', disabled, icon, href}: AppButtonProps) {
+export default function AppButton({title, onClick, color='--primary-color', textColor='white', form='square', type='solid', disabled, icon, href, style = {}, className = ''}: AppButtonProps) {
     
-    let tailwind = ' py-[5px] px-[15px] text-[15px] flex border';
+    let tailwind = className + ' flex justify-center py-[5px] px-[15px] text-[15px] flex border';
     let dynamicStyle = {
+        ...style, 
         background: color.startsWith('--') ? `var(${color})` : color,
         borderColor: color.startsWith('--') ? `var(${color})` : color,
         color: textColor.startsWith('--') ? `var(${textColor})` : textColor
@@ -26,7 +29,6 @@ export default function AppButton({title, onClick, color='--primary-color', text
     if (type == 'outline') {
         dynamicStyle['background'] = 'transparent';
         dynamicStyle['color'] = color.startsWith('--') ? `var(${color})` : color;
-        console.log(tailwind);
     }
     
     //Forma
@@ -36,7 +38,7 @@ export default function AppButton({title, onClick, color='--primary-color', text
     if (disabled) tailwind += ' opacity-50'
     else tailwind += ' cursor-pointer'
 
-    console.log(tailwind);
+    
 
     // ==========================================================================
     // ------------------------
@@ -45,7 +47,7 @@ export default function AppButton({title, onClick, color='--primary-color', text
         <Link href={href ? href : '#'}>
             <div className={tailwind} style={dynamicStyle} onClick={disabled ? () => {} : onClick}>
                 {icon && <i className={`ion-${icon} mr-[5px]`} />}
-                <p>{title}</p>
+                <p className="ff-default">{title}</p>
             </div>
         </Link>
     )
