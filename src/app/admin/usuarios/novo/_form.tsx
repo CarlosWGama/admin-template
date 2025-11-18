@@ -5,17 +5,22 @@ import * as Yup from 'yup';
 import UserServices from "@/services/user";
 import { useRouter } from "next/navigation";
 import { setFlashData } from "@/helpers/router";
+import { useState } from "react";
 
 // ===========================================================================
 export default function UsuarioForm() {
 
     const router = useRouter();
+    const [ error, setError ] = useState<string|null>(null);
     // ===========================================================================
     const handleOnSubmit = async (data:any) => {
-        const response =  await UserServices.create(data);
-        if (response.success) {
+        setError(null);
+        const { success, error } =  await UserServices.create(data);
+        if (success) {
             setFlashData({success: 'Usuário cadastrado com sucesso'});
             router.replace('/admin/usuarios');
+        } else if (error) {
+            setError(error);
         }
     }
     // ===========================================================================
@@ -39,6 +44,7 @@ export default function UsuarioForm() {
                             <option value="0">Usuário</option>
                         </AppSelect>
 
+                        {error && <p className="my-3 text-[tomato] text-[15px]">{error}</p>}
                         <AppButton title="Salvar" icon="checkmark" onClick={() => handleSubmit()} disabled={!isValid || isSubmitting}/>
 
                 </form>

@@ -15,12 +15,16 @@ export default function UsuarioForm({ userID }: UsuarioFormProps) {
 
     const router = useRouter();
     const [ user, setUser ] = useState({name: '', email: '', password: '', admin: false});
+    const [ error, setError ] = useState<string|null>(null);
     // ===========================================================================
     const handleOnSubmit = async (data:any) => {
-        const { success } =  await UserServices.update(data);
+        setError(null);
+        const { success, error } =  await UserServices.update(data);
         if (success) {
             setFlashData({success: 'Usuário editado com sucesso'});
             router.replace('/admin/usuarios');
+        } else if (error) {
+            setError(error);
         }
     }
     // -----------------------
@@ -56,6 +60,7 @@ export default function UsuarioForm({ userID }: UsuarioFormProps) {
                             <option value="0">Usuário</option>
                         </AppSelect>
 
+                        {error && <p className="my-3 text-[tomato] text-[15px]">{error}</p>}
                         <AppButton title="Editar" icon="checkmark" onClick={() => handleSubmit()} disabled={!isValid || isSubmitting}/>
 
                 </form>

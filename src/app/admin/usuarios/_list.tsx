@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import UserServices from "@/services/user";
 import Link from "next/link";
-import { AppButton, AppModal } from "@/themes/components";
+import { AppButton, AppLoader, AppModal } from "@/themes/components";
 import { getFlashData } from "@/helpers/router";
 
 export default function UserList() {
@@ -11,11 +11,13 @@ export default function UserList() {
     const [ userRemove, setUserRemove ] = useState<any>(null);
     const [ success, setSuccess ] = useState<string|null>(null);
     const [ error, setError ] = useState<string|null>(null);
+    const [ loading, setLoading ] = useState(true);
     
     // ======================================================================
     const getUsers = async () => {
         const response = await UserServices.getAll();
         if (response.success) setUsers(response.users);
+        setLoading(false);
     }
     // -----------
     const handleRemove = async (user: any) => {
@@ -25,9 +27,11 @@ export default function UserList() {
     }
     // -----------
     const handleModalConfirm = async () => {
+        setLoading(true);
         setUserRemove(null);
         await UserServices.delete(userRemove.id)
         setSuccess('Usuário excluido com sucesso!');
+        getUsers();
     }
     // -----------
     const handleModalCancel = async () => {
@@ -50,7 +54,9 @@ export default function UserList() {
         <>
             { success && <p className="bg-[#6eef01] px-5 text-center rounded-full color-[white] p-1">{success}</p> }
             { error && <p className="bg-[tomato] px-5 text-center rounded-full color-[white] p-1">{error}</p> }
-            <div className="overflow-x-auto">
+            
+            { loading && <div className="flex justify-center"><AppLoader size={50} className="self-center"/></div>}
+            { !loading &&  <div className="overflow-x-auto">
                 <table className="min-w-full bg-white">
                     {/* HEADER  */}
                     <thead>
@@ -80,7 +86,7 @@ export default function UserList() {
                         ))}
                     </tbody>
                 </table>
-            </div>
+            </div>}
 
             {userRemove && <AppModal title="Remover usuário">
                 <p>Deseja realmente remover o usuário {userRemove.name} ({userRemove.email})?</p>

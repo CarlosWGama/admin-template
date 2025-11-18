@@ -1,5 +1,5 @@
 "use client";
-import { AppInput, AppModal } from "@/themes/components";
+import { AppButton, AppInput, AppModal } from "@/themes/components";
 import { Formik } from "formik";
 import Image from "next/image";
 import { useState } from "react";
@@ -63,7 +63,7 @@ export default function LoginForm() {
                             {errorLogin && <p className="text-[tomato] ff-default text-[20px] text-center mt-3">{errorLogin}</p>}
 
 
-                            <input type="submit" className={`rounded-full bg-(--primary-color) text-white p-2 my-5 ${isValid ? 'opacity-100 cursor-pointer' : 'opacity-50'}`} value="Entrar" disabled={isSubmitting || !isValid} ></input>
+                            <AppButton title="Entrar" onClick={handleSubmit} disabled={isSubmitting || !isValid} form="round" />
 
                             <p className="ff-default text-center"> Não tem conta? Entre em contato com o desenvolvedor</p>
                         </div>

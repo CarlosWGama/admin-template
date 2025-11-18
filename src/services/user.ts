@@ -53,7 +53,7 @@ const UserServices = {
      * @returns 
      */
     getAll: async(): Promise<{success: boolean, users?: any[]}>  => {
-        new Promise((resolve) => setInterval(resolve, 1000));
+        new Promise((resolve) => setInterval(resolve, 2000));
 
         return {success: true, users: [
             {id: 1, name: 'Teste', email: 'teste@teste.com', admin: false},
@@ -79,7 +79,7 @@ const UserServices = {
      * @param user 
      * @returns 
      */
-    create: async (user:any): Promise<{success: boolean}> => {
+    create: async (user:any): Promise<{success: boolean, error?: string}> => {
        new Promise((resolve) => setInterval(resolve, 1000));
        return { success: true};
     },
@@ -89,7 +89,7 @@ const UserServices = {
      * @param user 
      * @returns 
      */
-    update: async (user:any): Promise<{success: boolean}> => {
+    update: async (user:any): Promise<{success: boolean, error?: string}> => {
        new Promise((resolve) => setInterval(resolve, 1000));
        return { success: true};
     },
